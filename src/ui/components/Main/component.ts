@@ -71,7 +71,7 @@ const DEFAULT_APP = {
     name: 'GlimmerApp',
     template: {
       fileName: pathForTemplate('GlimmerApp'),
-      sourceText: `<h1>Welcome to Glimmer!</h1>
+      sourceText: `<h1>Welcome to the Glimmer Playground!</h1>
 <p>You have clicked the button {{count}} times.</p>
 <button onclick={{action increment}}>Click</button>`
     },

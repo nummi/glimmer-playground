@@ -1,0 +1,33 @@
+[is="repl-button"] {
+  position: relative;
+  padding: 0;
+
+  border: none;
+
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: $orange;
+  background-color: transparent;
+
+  cursor: pointer;
+
+  &:before {
+    content: '+';
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+    border-radius: 50%;
+    color: $orange;
+    font-size: 1.2rem;
+    font-weight: normal;
+    line-height: 14px;
+  }
+
+  &:hover:before {
+    color: #fff;
+    background: $orange;
+  }
+}

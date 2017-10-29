@@ -87,6 +87,33 @@ glimmer-repl {
     button.confirm {
       margin-left: 15px;
     }
+
+    .toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 20px;
+      cursor: pointer;
+
+      &:after {
+        position: absolute;
+        top: calc(50% - 3px);
+        right: 8px;
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid $base00;
+        transition: all 0.1s;
+      }
+
+      &.hidden:after {
+        right: 8px;
+        transform: rotate(90deg);
+      }
+    }
   }
 
   @include desktop {

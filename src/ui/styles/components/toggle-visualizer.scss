@@ -1,0 +1,46 @@
+.toggle-visualizer {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: z('toggleVisualizer');
+
+  .pie {
+    position: relative;
+    top: -2px;
+  }
+  
+  .eye-icon {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .eye-icon:before, .eye-icon:after {
+    position: absolute;
+    display: block;
+    content: '';
+  }
+  
+  .eye-icon:before {
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 0 75% 0 75%;
+    transform: rotate(-45deg);
+    background-color: #555;
+  }
+  
+  .eye-icon:after {
+    top: 50%;
+    left: 50%;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    width: 28%;
+    height: 28%;
+    margin-left: -22%;
+    margin-top: -22%;
+  }
+}

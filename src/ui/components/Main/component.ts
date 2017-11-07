@@ -242,8 +242,12 @@ export default class extends Component {
 
   @tracked isVisualizerShowing = false;
 
-  toggleVisualizer() {
-    this.isVisualizerShowing = !this.isVisualizerShowing;
+  showVisualizer() {
+    this.isVisualizerShowing = true;
+  }
+
+  hideVisualizer() {
+    this.isVisualizerShowing = false;    
   }
 
   hideShare() {

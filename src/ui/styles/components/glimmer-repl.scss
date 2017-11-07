@@ -107,17 +107,4 @@ glimmer-repl {
   .title {
     text-align: center;
   }
-
-  .toggle-visualizer {
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-    border: none;
-    z-index: z('toggleVisualizer');
-
-    background: transparent;
-    font-size: 18px;
-
-    cursor: pointer;
-  }
 }

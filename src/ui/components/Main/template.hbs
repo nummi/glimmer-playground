@@ -93,7 +93,10 @@
       <Visualizer @fs={{fs}} />
     {{/if}}
 
-    <button class="toggle-visualizer" onclick={{action toggleVisualizer}}>π</button>
+    <div class="segmented-buttons toggle-visualizer">
+      <button class="{{if isVisualizerShowing '' 'active'}}" onclick={{action hideVisualizer}}><span class="eye-icon"></span></button>
+      <button class="{{if isVisualizerShowing 'active'}}"    onclick={{action showVisualizer}}><span class="pie">π</span></button>
+    </div>
   {{else}}
     <div class="pane editor">
       <div class="loading">

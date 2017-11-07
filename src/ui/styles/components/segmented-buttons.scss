@@ -1,0 +1,44 @@
+.segmented-buttons {
+  display: inline-flex;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  
+  button {
+    display: inline-flex;
+    flex: 0 1 auto;
+    height: 2rem;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 15px;
+    color: #555;
+    font-size: 19px;
+    background: $base3;
+  }
+  
+  button:first-child:not(:last-child) {
+    border-right: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  button:last-child:not(:first-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  
+  button.active {
+    border-color: #cb4b16;
+    color: #fff;
+    background-color: #cb4b16;
+  }
+  
+  button.active .eye-icon:before {
+    background-color: #fff;
+  }
+  
+  button.active .eye-icon:after {
+    border-color: #cb4b16;
+  }
+}

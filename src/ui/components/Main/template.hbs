@@ -5,6 +5,9 @@
         <div class="editor-actions">
           <Button @onClick={{action createNewComponent}} @title="Add Component" />
           <Button @onClick={{action createNewHelper}} @title="Add Helper" />
+          <button class="button" onclick={{action createZip}}>
+            Download <span class="mobile-hidden">Project</span>
+          </button>
         </div>
         <span class="glimmerjs-com">
           <a href="https://glimmerjs.com" class="logo" title="glimmerjs.com"></a>

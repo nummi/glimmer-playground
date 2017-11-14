@@ -2,6 +2,7 @@ import Component, { tracked } from "@glimmer/component";
 import FileSystem, { File } from "../../../utils/file-system";
 import SolarizedTheme from "../../../utils/monaco/themes/solarized-dark";
 import { debounce } from "decko";
+import { saveAs } from "file-saver";
 
 declare function vsRequire(deps: string[], cb: any);
 declare var typings;
@@ -71,7 +72,7 @@ const DEFAULT_APP = {
     name: 'GlimmerApp',
     template: {
       fileName: pathForTemplate('GlimmerApp'),
-      sourceText: `<h1>Welcome to Glimmer!</h1>
+      sourceText: `<h1>Welcome to the Glimmer Playground!</h1>
 <p>You have clicked the button {{count}} times.</p>
 <button onclick={{action increment}}>Click</button>`
     },
@@ -240,6 +241,38 @@ export default class extends Component {
   toggleVisualizer() {
     this.isVisualizerShowing = !this.isVisualizerShowing;
   }
+
+  createZip() {
+    loadJSZip().then((JSZip) => {
+      let zip = new JSZip();
+      let prefix = 'glimmer-app/';
+
+      this.components.forEach(function(file) {
+        if(file.component) {
+          zip.file(
+            prefix + pathForComponent(file.name),
+            file.component.sourceText
+          );
+        }
+
+        zip.file(
+          prefix + pathForTemplate(file.name),
+          file.template.sourceText
+        );
+      });
+
+      this.helpers.forEach(function(file) {
+        zip.file(
+          prefix + pathForHelper(file.name),
+          file.helper.sourceText
+        );
+      });
+
+      zip.generateAsync({type:"blob"}).then(function(content) {
+        saveAs(content, "glimmer-playground.zip");
+      });
+    });
+  }
 }
 
 function pathForTemplate(name) {
@@ -282,4 +315,14 @@ function initializeTypeScript() {
     let content = typings[filename];
     ts.typescriptDefaults.addExtraLib(content, `file:///${filename}`);
   }
+}
+
+const JSZIP_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js';
+
+function loadJSZip() {
+  return new Promise((resolve, reject) => {
+    vsRequire([JSZIP_URL], (script) => {
+      resolve(script);
+    });
+  });
 }

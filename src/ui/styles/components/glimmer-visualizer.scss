@@ -1,10 +1,10 @@
 glimmer-visualizer {
   position: fixed;
 
-  top: 10%;
-  right: 10%;
-  bottom: 10%;
-  left: 10%;
+  @include safeArea("top", 4%, "top");
+  @include safeArea("right", 4%, "right");
+  @include safeArea("bottom", 4%, "bottom");
+  @include safeArea("left", 4%, "left");
 
   padding: 17px;
   overflow-y: auto;

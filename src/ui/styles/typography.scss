@@ -5,3 +5,12 @@
 @mixin monospace {
   font-family: CamingoCode, Fira, "Source Code Pro", Menlo, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
 }
+
+@mixin safeArea($prop, $value, $direction) {
+  #{$prop}: #{$value};
+  #{$prop}: withSafeArea($value, $direction);
+}
+
+@function withSafeArea($value, $direction) {
+  @return calc(#{$value} + constant(safe-area-inset-#{$direction}));
+}

@@ -31,7 +31,10 @@ glimmer-repl {
       min-height: 100vh;
     }
 
-    padding: 23px 32px 32px 32px;
+    padding-top: 23px;
+    @include safeArea("padding-right", 24px, "right");
+    padding-bottom: 32px;
+    @include safeArea("padding-left", 24px, "left");
   }
 
   .editor {
@@ -47,7 +50,7 @@ glimmer-repl {
     display: flex;
     align-items: center;
     margin: 0;
-    padding: 6px 15px;
+    padding: 6px 0;
     font-weight: normal;
     font-size: 1.2rem;
     color: $blue;
@@ -67,14 +70,13 @@ glimmer-repl {
     }
   }
 
-  .component:first-of-type h2.component-name {
-    padding-top: 15px;
+  .component {
+    @include safeArea("padding-right", 15px, "right");
+    @include safeArea("padding-left", 15px, "left");
   }
 
-  @include desktop {
-    .file {
-      padding-left: 32px;
-    }
+  .component:first-of-type h2.component-name {
+    padding-top: 15px;
   }
 
   .file-name {
@@ -83,7 +85,7 @@ glimmer-repl {
     min-height: 24px;
     font-weight: normal;
     font-size: 0.8rem;
-    margin: 0 17px 15px 27px;
+    margin: 0 0 15px 30px;
 
     button.remove {
       margin-top: 2px;
@@ -110,8 +112,8 @@ glimmer-repl {
 
   .toggle-visualizer {
     position: fixed;
-    right: 15px;
-    bottom: 15px;
+    @include safeArea("right", 15px, "right");
+    @include safeArea("bottom", 15px, "bottom");
     border: none;
     z-index: z('toggleVisualizer');
 

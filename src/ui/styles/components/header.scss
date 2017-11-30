@@ -38,11 +38,13 @@
   }
 
   .logo {
-    padding-left: 26px;
-    background-image: url(images/favicon.png);
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: 24px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 

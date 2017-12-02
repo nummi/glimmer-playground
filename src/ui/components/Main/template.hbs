@@ -9,8 +9,8 @@
           <button class="button" onclick={{action createNewHelper}}>
             Add Helper
           </button>
-          <button class="button" onclick={{action showShare}}>
-            Share
+          <button class="button button--icon" id="header-button-more" onclick={{action showMore}}>
+            <img src="images/more.svg">
           </button>
         </div>
         <span class="glimmerjs-com">
@@ -105,10 +105,32 @@
   {{/if}}
 
   {{#if shareIsVisible}}
-    <OverlayKeyBindings @hide={{action hideShare}}>
+    <OverlayKeyBindings @hide={{action hideShare}} @eventKey="share-overlay">
       <OverlayUI @title="Share Project" @hide={{action hideShare}} @rootClass="share-overlay">
         <Share @download={{action download}} @loading={{jsZipIsLoading}} />
       </OverlayUI>
+    </OverlayKeyBindings>
+  {{/if}}
+
+  {{#if welcomeIsVisible}}
+    <OverlayKeyBindings @hide={{action hideWelcome}} @eventKey="welcome-overlay">
+      <OverlayUI @hide={{action hideWelcome}} @rootClass="welcome-overlay">
+        Welcome Overlay
+      </OverlayUI>
+    </OverlayKeyBindings>
+  {{/if}}
+
+  {{#if moreIsVisible}}
+    <OverlayKeyBindings @hide={{action hideMore}} @eventKey="more-actions">
+      <div class="overlay more-actions">
+        <div class="overlay-background overlay-background--transparent" onclick={{action hideMore}}></div>
+        <TargetPosition @id="header-button-more" as |position|>
+          <div class="overlay-window animation-fade-in" style={{overlay-more-styles position}}>
+            <button class="button" onclick={{action hideMore (action showShare)}}>Share Project</button>
+            <button class="button" onclick={{action hideMore (action showWelcome)}}>Load Project</button>
+          </div>
+        </TargetPosition>
+      </div>
     </OverlayKeyBindings>
   {{/if}}
 </glimmer-repl>

@@ -1,5 +1,6 @@
 import Component, { tracked } from '@glimmer/component';
 import { ESCAPE, TAB } from '../../../utils/keys';
+import eventManager from '../../../utils/event-manager';
 
 const FOCUSABLE_ELEMENTS = [
   '[tabindex]',
@@ -27,15 +28,7 @@ const keepFocus = function(e) {
 };
 
 export default class extends Component {
-  handleKeydown = null;
-  keepFocus = null;
   el = null;
-
-  constructor(options) {
-    super(options);
-    this.handleKeydown = handleKeydown.bind(this);
-    this.keepFocus = keepFocus.bind(this);
-  }
 
   didInsertElement() {
     let firstNode = <HTMLElement>this.bounds.firstNode;
@@ -44,17 +37,21 @@ export default class extends Component {
     let firstFocusable = <HTMLElement>this.focusableElements[0];
     firstFocusable.focus();
 
-    document.addEventListener('keydown', this.handleKeydown);
-    document.body.addEventListener('focus', this.keepFocus, true);
+    eventManager.subscribe({
+      key: this.args.eventKey,
+      event: 'focus',
+      callback: keepFocus.bind(this)
+    });
+
+    eventManager.subscribe({
+      key: this.args.eventKey,
+      event: 'keydown',
+      callback: handleKeydown.bind(this)
+    });
   }
 
   willDestroy() {
-    this.teardown();
-  }
-
-  teardown() {
-    document.removeEventListener('keydown', this.handleKeydown);
-    document.body.removeEventListener('focus', this.keepFocus, true);
+    eventManager.unsubscribe(this.args.eventKey);
   }
 
   get focusableElements() {
@@ -64,7 +61,6 @@ export default class extends Component {
   }
 
   escapeKeyPressed() {
-    this.teardown();
     this.args.hide();
   }
 

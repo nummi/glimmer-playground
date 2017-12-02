@@ -31,3 +31,19 @@ body, html {
 
   background-color: $base03;
 }
+
+.more-actions {
+  background: transparent;
+
+  .overlay-window {
+    width: 150px;
+    padding: 5px 5px 0 5px;
+  }
+
+  .button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    background: $orange;
+  }
+}

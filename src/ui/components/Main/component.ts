@@ -1,4 +1,5 @@
 import Component, { tracked } from "@glimmer/component";
+import eventManager from '../../../utils/event-manager';
 import FileSystem, { File } from "../../../utils/file-system";
 import SolarizedTheme from "../../../utils/monaco/themes/solarized-dark";
 import { debounce } from "decko";
@@ -93,6 +94,8 @@ export default class GlimmerRepl extends Component {
   @tracked components: ComponentFiles[] = [];
   @tracked helpers: HelperFiles[] = [];
   @tracked isLoaded = false;
+  @tracked moreIsVisible = false;
+  @tracked welcomeIsVisible = false;
   @tracked shareIsVisible = false;
   @tracked shareTrigger = null;
   @tracked jsZipIsLoading = false;
@@ -101,6 +104,8 @@ export default class GlimmerRepl extends Component {
   lastUnknownComponent = null;
 
   didInsertElement() {
+    //this.showWelcome();
+
     waitForDependencies()
       .then(() => {
         this.isLoaded = true;
@@ -245,21 +250,49 @@ export default class extends Component {
     this.isVisualizerShowing = !this.isVisualizerShowing;
   }
 
-  hideShare() {
-    this.shareIsVisible = false;
+  showWelcome() {
+    eventManager.startPublishing('welcome-overlay');
+    this.welcomeIsVisible = true;
+  }
 
-    if(this.shareTrigger) {
-      setTimeout(function(trigger) {
-        trigger.focus();
-      }, 100, this.shareTrigger);
-    }
-
-    this.shareTrigger = null;
+  hideWelcome() {
+    eventManager.stopPublishing('welcome-overlay');
+    this.welcomeIsVisible = false;
   }
 
   showShare(event) {
+    eventManager.startPublishing('share-overlay');
     this.shareTrigger = event.target;
     this.shareIsVisible = true;
+  }
+
+  hideShare() {
+    eventManager.stopPublishing('share-overlay');
+    this.shareIsVisible = false;
+
+    if(this.shareTrigger) {
+      this.shareTrigger.focus();
+      this.shareTrigger = null;
+    }
+  }
+
+  showMore(event) {
+    this.shareTrigger = event.target;
+    eventManager.startPublishing('more-actions');
+    this.moreIsVisible = true;
+  }
+
+  hideMore(callback, event) {
+    this.moreIsVisible = false;
+    eventManager.stopPublishing('more-actions');
+    if(callback && typeof callback === 'function') {
+      callback(event);
+    } else {
+      if(this.shareTrigger) {
+        this.shareTrigger.focus();
+        this.shareTrigger = null;
+      }
+    }
   }
 
   download() {
